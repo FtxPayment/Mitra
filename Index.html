@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join Mitra Gadai Crypto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      background: rgba(30, 30, 50, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 580px;
+      width: 100%;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+    }
+    h2, h3 {
+      text-align: center;
+      color: #00ffc3;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+      background: #343457;
+      color: #fff;
+    }
+    button {
+      background: linear-gradient(to right, #00e0ff, #00ffc3);
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .highlight {
+      color: #33ffcc;
+      font-weight: bold;
+    }
+    #dashboard {
+      display: none;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    .dashboard-item {
+      background-color: #1a1a2e;
+      margin: 15px 0;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="main-content">
+    <div class="card">
+      <h2>Gabung Sebagai Mitra Gadai Crypto</h2>
+      <p>Bergabunglah menjadi <span class="highlight">Mitra Resmi</span> kami dan dapatkan komisi hingga <span class="highlight">50%</span> dari keuntungan bunga setiap transaksi gadai crypto!</p>
+      <p>Cocok untuk komunitas, agen, atau individu yang ingin menghasilkan pasif income dari dunia crypto.</p>
+    </div>
+
+    <div class="card">
+      <h3>Formulir Pendaftaran Mitra</h3>
+      <label for="mitra-name">Nama Lengkap:</label>
+      <input type="text" id="mitra-name" placeholder="Nama Anda">
+
+      <label for="mitra-email">Email Aktif:</label>
+      <input type="email" id="mitra-email" placeholder="Email Anda">
+
+      <label for="mitra-phone">Nomor HP / WhatsApp:</label>
+      <input type="text" id="mitra-phone" placeholder="08xxxx">
+
+      <label for="mitra-nik">Nomor Identitas Diri / NIK:</label>
+      <input type="text" id="mitra-nik" placeholder="Contoh: 320101xxxxxxxxxx">
+
+      <button onclick="kirimPendaftaran()">Daftar Sekarang</button>
+    </div>
+
+    <div class="card">
+      <h3>Login Mitra</h3>
+      <label for="login-email">Email:</label>
+      <input type="email" id="login-email" placeholder="Email Anda">
+
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" placeholder="Password Anda">
+
+      <button onclick="loginMitra()">Login</button>
+      <p id="login-result" style="text-align: center; margin-top: 10px;"></p>
+    </div>
+  </div>
+
+  <div id="dashboard">
+    <div class="card">
+      <h2>Dashboard Mitra</h2>
+      <div class="dashboard-item">
+        <strong>Selamat datang, Mitra!</strong><br/>
+        Email terdaftar: <span id="dashboard-email"></span>
+      </div>
+      <div class="dashboard-item">
+        <p>Total Komisi yang di dapat para mitra:</p>
+        <h3>Rp 285.350.000</h3>
+      </div>
+      <div class="dashboard-item">
+        <p>Jumlah mitra yang terverifikasi:</p>
+        <h3>957 mitra terverifikasi</h3>
+      </div>
+      <div class="dashboard-item">
+        <p>Ajukan Komisi:</p>
+        <label for="komisi-jumlah">Jumlah yang ingin anda dapatkan maksimal: Rp.3.850.000(Rp):</label>
+        <input type="number" id="komisi-jumlah" placeholder="Contoh: 1000000">
+        <button onclick="ajukanKomisi()">Ajukan Komisi</button>
+      </div>
+      <div class="dashboard-item">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function kirimPendaftaran() {
+      const nama = document.getElementById('mitra-name').value.trim();
+      const email = document.getElementById('mitra-email').value.trim();
+      const hp = document.getElementById('mitra-phone').value.trim();
+      const nik = document.getElementById('mitra-nik').value.trim();
+
+      if (!nama || !email || !hp || !nik) {
+        alert('Mohon isi semua kolom wajib termasuk NIK.');
+        return;
+      }
+
+      const pesan = `*Pendaftaran Mitra Gadai Crypto*\n\n` +
+        `Nama: ${nama}\nEmail: ${email}\nNo HP: ${hp}\nNIK: ${nik}`;
+
+      const encoded = encodeURIComponent(pesan);
+      const waUrl = `https://wa.me/628567624130?text=${encoded}`;
+      window.open(waUrl, '_blank');
+    }
+
+    function loginMitra() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value.trim();
+      const result = document.getElementById('login-result');
+
+      if (!email || !password) {
+        result.style.color = 'red';
+        result.innerText = 'Email dan password wajib diisi.';
+        return;
+      }
+
+      // Validasi email dan password
+      if (email === "Mitragadai@crypto.com" && password === "mitra14") {
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("dashboard-email").innerText = email;
+      } else {
+        result.style.color = 'red';
+        result.innerText = 'Login gagal. Cek kembali email dan password.';
+      }
+    }
+
+    function logout() {
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+      document.getElementById("login-email").value = "";
+      document.getElementById("login-password").value = "";
+      document.getElementById("login-result").innerText = "";
+    }
+
+    function ajukanKomisi() {
+      const email = document.getElementById("dashboard-email").innerText;
+      const jumlah = document.getElementById("komisi-jumlah").value.trim();
+
+      if (!jumlah || isNaN(jumlah) || parseInt(jumlah) <= 0) {
+        alert("Masukkan jumlah komisi yang valid.");
+        return;
+      }
+
+      const pesan = `*Pengajuan Komisi Mitra Gadai Crypto*\n\nEmail: ${email}\nJumlah: Rp ${parseInt(jumlah).toLocaleString()}`;
+      const encoded = encodeURIComponent(pesan);
+      const waUrl = `https://wa.me/628567624130?text=${encoded}`;
+      window.open(waUrl, '_blank');
+    }
+  </script>
+</body>
+  </html>
